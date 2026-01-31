@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+           http://www.liquibase.org/xml/ns/dbchangelog
+           http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="0002-seed-resources-users" author="you">
+        <insert tableName="resources">
+            <column name="name" value="Conference Room A"/>
+            <column name="description" value="Room with projector and 10 seats"/>
+        </insert>
+        <insert tableName="resources">
+            <column name="name" value="Conference Room B"/>
+            <column name="description" value="Small meeting room for 4 people"/>
+        </insert>
+        <insert tableName="resources">
+            <column name="name" value="Doctor Office 1"/>
+            <column name="description" value="General practitioner office"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="username" value="alice"/>
+            <column name="email" value="alice@example.com"/>
+            <column name="full_name" value="Alice Example"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="bob"/>
+            <column name="email" value="bob@example.com"/>
+            <column name="full_name" value="Bob Example"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="resources">
+                <where>name IN ('Conference Room A', 'Conference Room B', 'Doctor Office 1')</where>
+            </delete>
+            <delete tableName="users">
+                <where>username IN ('alice', 'bob')</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
